@@ -21,22 +21,7 @@ func print_external():
 		var base_name = library_relative_path.get_basename()
 		var path_to = library_relative_path.get_base_dir()
 		return base_name.replace(path_to+"/","")
-@export_global_dir var external_roots:Array[String]:
-	set(val):
-		if not external:
-			for v in val.size():
-				if val[v].is_absolute_path():
-					val[v] =(ProjectSettings.localize_path(val[v]))
-		else:
-			for v in val.size():
-				if val[v].is_relative_path():
-					val[v] = source_code_path.path_join(val[v])
-					if DirAccess.dir_exists_absolute(val[v]):
-						var dir = DirAccess.open(val[v])
-						val[v] = dir.get_current_dir(true)
-					else:
-						val.remove_at(v)
-		external_roots = val
+@export_global_dir var external_roots:Array[String]
 @export_storage var source_code_path:String = "."
 @export_storage var external_code_path:String = "."
 @export var external = false
@@ -71,12 +56,12 @@ func export_library_source():
 		copy_library_from_source(ext_path)
 func copy_library_from_source(ext_path,delete_it=delete_overwrite_external):
 	ext_path =ext_path.replace("/./","/")
-	export_manifest(ext_path)
-	export_class_list(get_class_list(source_code_path),ext_path)
 	if delete_it:
 		delete(ext_path)
 	if ext_path != source_code_path:
 		copy(source_code_path,ext_path)
+	export_manifest(ext_path)
+	export_class_list(get_class_list(source_code_path),ext_path)
 func get_class_list(path) -> Array:
 	var script_info = []
 	var dir = DirAccess.open(path)
@@ -113,8 +98,12 @@ func export_manifest(path):
 	var save_this = self.duplicate(true)
 	
 	save_this.external = path != source_code_path
+	save_this.external_roots = save_this.external_roots
 	if save_this.external:
-		save_this.external_roots = save_this.external_roots
+		var library_exit = library_relative_path.count("/")
+		var library_exit_str = ""
+		for l in library_exit:
+			library_exit_str+="../"
 		save_this.external_code_path = path
 	var err= await ResourceSaver.save(save_this,source_path)
 	if err != OK:

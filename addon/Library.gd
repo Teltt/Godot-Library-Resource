@@ -122,6 +122,8 @@ func export_class_list(script_info: Array,path) -> void:
 		var file_path = info[1]
 		file_path = file_path.replace("./",get_root())
 		file_path = ProjectSettings.localize_path(file_path)
+		file_path.replace(source_code_path,get_root())
+		file_path.replace(path,get_root())
 		file.store_line("const " + _class_name + " = \"" + file_path + "\"")
 	file.close()
 

@@ -11,7 +11,7 @@ If using an exported manifest, you can update all copies of the library in addit
 
 The classes with global names will be exported to a file like this, where the class name is the last folder in the library path
 
-
+You can extend any class that had a global name in the library via
 
 for example
 extends Library.Example

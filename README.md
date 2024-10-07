@@ -1,6 +1,6 @@
 # Godot-Library-Resource
 A system for easily transfering code between projects
-This addon purely uses the built in godot inspector.
+This addon purely uses the built in godot inspector. The library file should be named MANIFEST.tres and placed in the library folder
 If a library resource isn't marked as external it will push an update to all project roots in external roots.
 The library will be placed at the same path relative to the project root in all projects.
 ![image](https://github.com/user-attachments/assets/4f9d1665-522a-4cd3-b41d-e8e254cf739c)

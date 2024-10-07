@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="LibraryManifest" load_steps=2 format=3 uid="uid://bwk6lkto40dar"]
+
+[ext_resource type="Script" path="res://addon/Library.gd" id="1_vnhcg"]
+
+[resource]
+script = ExtResource("1_vnhcg")
+delete_overwrite_external = true
+library_path = "res://Example/Library"
+library_relative_path = "./Example/Library"
+library_name = "Library"
+external_roots = Array[String](["../OtherProject"])
+source_code_path = "./Example/Library"
+external_code_path = "./Example/Library"
+external = false 
